@@ -1,0 +1,49 @@
+.tabla-container {
+  background-color: #004b55;
+  color: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 900px;
+  margin: auto;
+}
+
+.titulo {
+  text-align: center;
+  color: #00bcd4;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background-color: #005e6a;
+}
+
+thead th {
+  color: #00a9bf;
+  padding: 10px;
+  text-align: left;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #005e6a;
+}
+
+tbody tr:nth-child(odd) {
+  background-color: #004b55;
+}
+
+tbody td {
+  padding: 10px;
+  text-align: left;
+}
+
+table,
+td,
+th {
+  border: 1px solid #00bcd4;
+}

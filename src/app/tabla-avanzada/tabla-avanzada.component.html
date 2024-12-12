@@ -1,0 +1,27 @@
+<div class="tabla-container">
+  <h1 class="titulo">Proyecto Avanzada</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Fecha</th>
+        <th>Joyner</th>
+        <th>Nelson</th>
+        <th>Dario</th>
+        <th>Mario</th>
+        <th>Mateo</th>
+        <th>Inge</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let fila of tablaDatos">
+        <td>{{ fila.Fecha }}</td>
+        <td>{{ fila.Joyner }}</td>
+        <td>{{ fila.Nelson }}</td>
+        <td>{{ fila.Dario }}</td>
+        <td>{{ fila.Mario }}</td>
+        <td>{{ fila.Mateo }}</td>
+        <td>{{ fila.Inge }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
