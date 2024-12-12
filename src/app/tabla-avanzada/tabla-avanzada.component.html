@@ -13,14 +13,74 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let fila of tablaDatos">
-        <td>{{ fila.Fecha }}</td>
-        <td>{{ fila.Joyner }}</td>
-        <td>{{ fila.Nelson }}</td>
-        <td>{{ fila.Dario }}</td>
-        <td>{{ fila.Mario }}</td>
-        <td>{{ fila.Mateo }}</td>
-        <td>{{ fila.Inge }}</td>
+      <tr *ngFor="let fila of tablaDatos; let i = index">
+        <td>{{ fila['Fecha'] }}</td>
+        <td>
+          <input
+            *ngIf="i !== tablaDatos.length - 1"
+            type="number"
+            [(ngModel)]="tablaDatos[i]['Joyner']"
+            (input)="recalcularTotales()"
+            [min]="0"
+            placeholder="0"
+          />
+          <span *ngIf="i === tablaDatos.length - 1">{{ fila['Joyner'] }}</span>
+        </td>
+        <td>
+          <input
+            *ngIf="i !== tablaDatos.length - 1"
+            type="number"
+            [(ngModel)]="tablaDatos[i]['Nelson']"
+            (input)="recalcularTotales()"
+            [min]="0"
+            placeholder="0"
+          />
+          <span *ngIf="i === tablaDatos.length - 1">{{ fila['Nelson'] }}</span>
+        </td>
+        <td>
+          <input
+            *ngIf="i !== tablaDatos.length - 1"
+            type="number"
+            [(ngModel)]="tablaDatos[i]['Dario']"
+            (input)="recalcularTotales()"
+            [min]="0"
+            placeholder="0"
+          />
+          <span *ngIf="i === tablaDatos.length - 1">{{ fila['Dario'] }}</span>
+        </td>
+        <td>
+          <input
+            *ngIf="i !== tablaDatos.length - 1"
+            type="number"
+            [(ngModel)]="tablaDatos[i]['Mario']"
+            (input)="recalcularTotales()"
+            [min]="0"
+            placeholder="0"
+          />
+          <span *ngIf="i === tablaDatos.length - 1">{{ fila['Mario'] }}</span>
+        </td>
+        <td>
+          <input
+            *ngIf="i !== tablaDatos.length - 1"
+            type="number"
+            [(ngModel)]="tablaDatos[i]['Mateo']"
+            (input)="recalcularTotales()"
+            [min]="0"
+            placeholder="0"
+          />
+          <span *ngIf="i === tablaDatos.length - 1">{{ fila['Mateo'] }}</span>
+        </td>
+        <td>
+          <input
+            *ngIf="i !== tablaDatos.length - 1"
+            type="number"
+            [(ngModel)]="tablaDatos[i]['Inge']"
+            (input)="recalcularTotales()"
+            [min]="0"
+            placeholder="0"
+          />
+          <span *ngIf="i === tablaDatos.length - 1">{{ fila['Inge'] }}</span>
+        </td>
       </tr>
     </tbody>
   </table>
