@@ -219,34 +219,92 @@ button:focus {
 
 /* Footer */
 footer {
-    background-color: #001f26;
-    padding: 3rem 0;
-    margin-top: 6rem;
+    background-color: var(--primary-color);
+    padding: 2rem 0;
+    color: var(--text-light);
     text-align: center;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: relative;
+    z-index: 10;
+    border-top: 5px solid var(--secondary-color);
 }
 
 .footer-content {
     max-width: 1400px;
     width: 100%;
+    padding: 0 1rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 0 2rem;
 }
 
-.social-links a {
+.footer-content p {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    font-weight: 400;
     color: var(--text-light);
-    font-size: 1.5rem;
-    margin-left: 1rem;
-    transition: color var(--transition-speed) ease;
 }
 
-.social-links a:hover {
+.footer-content p a {
     color: var(--secondary-color);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.footer-content p a:hover {
+    color: var(--text-light);
+}
+
+.footer-content .footer-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.footer-content .footer-links a {
+    font-size: 1.1rem;
+    color: var(--text-light);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-content .footer-links a:hover {
+    color: var(--secondary-color);
+}
+
+.footer-content .footer-links a:focus {
+    outline: none;
+}
+
+.footer-bottom {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    margin-top: 2rem;
+    font-weight: 300;
+}
+
+.footer-bottom a {
+    color: var(--secondary-color);
+    font-weight: 600;
+}
+
+.footer-bottom a:hover {
+    color: var(--text-light);
+}
+
+@media (max-width: 768px) {
+    .footer-content .footer-links {
+        flex-direction: column;
+        align-items: center;
+    }
 }
 
 /* Animaciones */
