@@ -1,0 +1,44 @@
+<header>
+  <nav>
+    <img src="assets/img/logo.jpg" alt="Logo Tel.efunken" class="logo">
+    <ul>
+      <li><a href="#">Inicio</a></li>
+      <li><a href="#">Iniciar Sesion</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <section class="hero">
+    <h1>{{ title }}</h1>
+    <p>Descubre la diversión y estrategia del juego de cartas Telefunken</p>
+    <button [routerLink]="'/game-interface'"(click)="startNewGame()">Iniciar Nuevo Juego</button>
+  </section>
+
+  <div class="rules-section">
+    <h2>Reglas de Telefunken</h2>
+    <div class="rule-cards">
+      <div *ngFor="let rule of rules" class="rule-card">
+        <img [src]="rule.image" alt="{{ rule.title }}" class="rule-image"/>
+        <h3>{{ rule.title }}</h3>
+        <p>{{ rule.description }}</p>
+      </div>
+    </div>
+  </div>
+
+
+</main>
+
+<footer>
+  <div class="footer-content">
+      <p>&copy; 2024 Plataforma Telefunken - Todos los derechos reservados</p>
+      <div class="footer-links">
+          <a href="#">Política de Privacidad</a>
+          <a href="#">Términos y Condiciones</a>
+          <a href="#">Ayuda</a>
+      </div>
+  </div>
+  <div class="footer-bottom">
+      <p><a href="#">Términos de uso</a> | <a href="#">Soporte</a></p>
+  </div>
+</footer>

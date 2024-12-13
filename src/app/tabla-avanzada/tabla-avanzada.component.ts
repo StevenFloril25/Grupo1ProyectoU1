@@ -1,75 +1,81 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
-// Definir el tipo de fila con acceso dinámico
 export type TablaFila = {
   Fecha: string;
-  [key: string]: string | number | null; // Permitir valores nulos
+  [key: string]: string | number | null;
 };
 
 @Component({
   selector: 'app-tabla-avanzada',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './tabla-avanzada.component.html',
   styleUrls: ['./tabla-avanzada.component.css']
 })
 export class TablaAvanzadaComponent {
-  @Input() tablaDatos: TablaFila[] = []; // Recibe los datos desde un componente padre
-  @Output() totalesCalculados = new EventEmitter<{ [key: string]: number }>(); // Emite el total calculado
+  // Datos para la tabla
+  tablaDatos: TablaFila[] = [
+    { Fecha: '1/3', 'Jugador 1': null, 'Jugador 2': null, 'Jugador 3': null, 'Jugador 4': null, 'Jugador 5': null, 'Jugador 6': null },
+    { Fecha: '2/3', 'Jugador 1': null, 'Jugador 2': null, 'Jugador 3': null, 'Jugador 4': null, 'Jugador 5': null, 'Jugador 6': null },
+    { Fecha: '1/4', 'Jugador 1': null, 'Jugador 2': null, 'Jugador 3': null, 'Jugador 4': null, 'Jugador 5': null, 'Jugador 6': null },
+    { Fecha: '2/4', 'Jugador 1': null, 'Jugador 2': null, 'Jugador 3': null, 'Jugador 4': null, 'Jugador 5': null, 'Jugador 6': null },
+    { Fecha: '1/5', 'Jugador 1': null, 'Jugador 2': null, 'Jugador 3': null, 'Jugador 4': null, 'Jugador 5': null, 'Jugador 6': null },
+    { Fecha: '2/5', 'Jugador 1': null, 'Jugador 2': null, 'Jugador 3': null, 'Jugador 4': null, 'Jugador 5': null, 'Jugador 6': null },
+    { Fecha: 'Escalera', 'Jugador 1': null, 'Jugador 2': null, 'Jugador 3': null, 'Jugador 4': null, 'Jugador 5': null, 'Jugador 6': null },
+    { Fecha: 'TOTAL', 'Jugador 1': 0, 'Jugador 2': 0, 'Jugador 3': 0, 'Jugador 4': 0, 'Jugador 5': 0, 'Jugador 6': 0 }
+  ];
 
-  mensajeAlerta: string | null = null; // Mensaje para las alertas
-  mostrarAlerta: boolean = false; // Estado para mostrar/ocultar la alerta
+  // Propiedades para mostrar mensajes de alerta
+  mensajeAlerta: string | null = null;
+  mostrarAlerta: boolean = false;
 
   // Fichas iniciales para cada jugador
   fichasJugadores: { [key: string]: number } = {
-    Joyner: 10,
-    Nelson: 10,
-    Dario: 10,
-    Mario: 10,
-    Mateo: 10,
-    Inge: 10,
+    'Jugador 1': 10,
+    'Jugador 2': 10,
+    'Jugador 3': 10,
+    'Jugador 4': 10,
+    'Jugador 5': 10,
+    'Jugador 6': 10
   };
 
-  // Totales de cada jugador
+  // Totales para cada jugador
   totales: { [key: string]: number } = {
-    Joyner: 0,
-    Nelson: 0,
-    Dario: 0,
-    Mario: 0,
-    Mateo: 0,
-    Inge: 0,
+    'Jugador 1': 0,
+    'Jugador 2': 0,
+    'Jugador 3': 0,
+    'Jugador 4': 0,
+    'Jugador 5': 0,
+    'Jugador 6': 0
   };
 
   constructor() {
     setTimeout(() => this.recalcularTotales(), 0);
   }
 
-  // Método para recalcular los totales
+  // Recalcular totales
   recalcularTotales(): void {
-    // Reiniciar los totales
     Object.keys(this.totales).forEach((key) => {
       this.totales[key] = 0;
     });
 
-    // Calcular los totales sumando los valores válidos de la tabla
     this.tablaDatos.forEach((fila, index) => {
       if (index < this.tablaDatos.length - 1) {
         Object.keys(this.totales).forEach((key) => {
-          if (
-            fila[key] !== null &&
-            typeof fila[key] === 'number' &&
-            typeof this.totales[key] === 'number'
-          ) {
+          if (fila[key] !== null && typeof fila[key] === 'number') {
             this.totales[key] += fila[key] as number;
           }
         });
       }
     });
 
-    // Emitir los totales actualizados
-    this.totalesCalculados.emit(this.totales);
+    this.tablaDatos[this.tablaDatos.length - 1] = {
+      ...this.tablaDatos[this.tablaDatos.length - 1],
+      ...this.totales
+    };
   }
 
   // Validar entrada de datos
@@ -94,7 +100,7 @@ export class TablaAvanzadaComponent {
     }
   }
 
-  // Mostrar alerta con un mensaje
+  // Mostrar alerta con mensaje
   mostrarAlertaConMensaje(mensaje: string): void {
     this.mensajeAlerta = mensaje;
     this.mostrarAlerta = true;

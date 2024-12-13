@@ -1,43 +1,68 @@
-<div class="alerta" *ngIf="mostrarAlerta">
-  {{ mensajeAlerta }}
+<header>
+  <nav>
+    <img src="assets/img/logo.jpg" alt="Logo Telefunken" class="logo">
+    <ul>
+      <li><a href="#">Inicio</a></li>
+      <li><a href="#">Iniciar Sesión</a></li>
+    </ul>
+  </nav>
+</header>
+
+<div
+  class="page-container"
+  [style.backgroundImage]="'url(/src/assets/img4.jpg)'"
+>
+  <main class="main-content">
+    <section class="tabla-section">
+      <div class="alerta" *ngIf="mostrarAlerta">
+        {{ mensajeAlerta }}
+      </div>
+
+      <table class="tabla">
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th *ngFor="let jugador of ['Jugador 1', 'Jugador 2', 'Jugador 3', 'Jugador 4', 'Jugador 5', 'Jugador 6']">
+              <div class="jugador-header">
+                {{ jugador }}
+                <div class="fichas">Fichas: {{ fichasJugadores[jugador] }}</div>
+                <button (click)="comprarFichas(jugador)">Comprar Ficha</button>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let fila of tablaDatos; let i = index">
+            <td>{{ fila['Fecha'] }}</td>
+            <td *ngFor="let jugador of ['Jugador 1', 'Jugador 2', 'Jugador 3', 'Jugador 4', 'Jugador 5', 'Jugador 6']">
+              <input
+                *ngIf="i !== tablaDatos.length - 1"
+                type="number"
+                [(ngModel)]="fila[jugador]"
+                (blur)="validarEntrada($event, fila, jugador)"
+                placeholder="-"
+              />
+              <span *ngIf="i === tablaDatos.length - 1">
+                {{ totales[jugador] !== undefined ? totales[jugador] : '-' }}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
 </div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Fecha</th>
-      <th *ngFor="let jugador of ['Joyner', 'Nelson', 'Dario', 'Mario', 'Mateo', 'Inge']">
-        <div class="jugador-header">
-          {{ jugador }}
-          <div class="fichas">Fichas: {{ fichasJugadores[jugador] }}</div>
-          <button (click)="comprarFichas(jugador)">Comprar Ficha</button>
-        </div>
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let fila of tablaDatos; let i = index">
-      <td>{{ fila['Fecha'] }}</td>
-      <td *ngFor="let jugador of ['Joyner', 'Nelson', 'Dario', 'Mario', 'Mateo', 'Inge']">
-        <input
-          *ngIf="i !== tablaDatos.length - 1"
-          type="number"
-          [(ngModel)]="fila[jugador]"
-          (blur)="validarEntrada($event, fila, jugador)"
-          placeholder="-"
-        />
-        <span *ngIf="i === tablaDatos.length - 1">
-          {{ totales[jugador] !== undefined ? totales[jugador] : '-' }}
-        </span>
-      </td>
-    </tr>
-  </tbody>
-  <tfoot>
-    <tr>
-      <td>TOTAL</td>
-      <td *ngFor="let jugador of ['Joyner', 'Nelson', 'Dario', 'Mario', 'Mateo', 'Inge']">
-        {{ totales[jugador] !== undefined ? totales[jugador] : '-' }}
-      </td>
-    </tr>
-  </tfoot>
-</table>
+<footer>
+  <div class="footer-content">
+    <p>&copy; 2024 Plataforma Telefunken - Todos los derechos reservados</p>
+    <div class="footer-links">
+      <a href="#">Política de Privacidad</a>
+      <a href="#">Términos y Condiciones</a>
+      <a href="#">Ayuda</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p><a href="#">Términos de uso</a> | <a href="#">Soporte</a></p>
+  </div>
+</footer>
