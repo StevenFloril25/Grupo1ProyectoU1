@@ -1,16 +1,13 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { TablaAvanzadaComponent } from './tabla-avanzada/tabla-avanzada.component';
-import { CommonModule } from '@angular/common';
-import { InicioComponent } from './inicio/inicio.component';
-import { SalaEsperaComponent } from './sala-espera/sala-espera.component';
-import { GameInterfaceComponent } from "./game-interface/game-interface.component";
+import { RouterModule, RouterOutlet } from '@angular/router';
+import { routes } from './app.routes'; // Importa las rutas
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, TablaAvanzadaComponent, CommonModule, InicioComponent, SalaEsperaComponent, GameInterfaceComponent],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  standalone: true,
+  imports: [RouterModule.forRoot(routes), RouterOutlet], // Configura las rutas y RouterOutlet
+  template: `<router-outlet></router-outlet>`, // Contenedor para las rutas
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
   title = 'Grupo1ProyectoU1';

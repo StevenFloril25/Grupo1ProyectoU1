@@ -1,10 +1,11 @@
 import { Component, HostListener, ElementRef } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-sala-espera',
-  imports:[],
+  imports: [RouterModule],
   templateUrl: './sala-espera.component.html',
-  styleUrl: './sala-espera.component.css'
+  styleUrls: ['./sala-espera.component.css']
 })
 export class SalaEsperaComponent {
   constructor(private elRef: ElementRef) {}
@@ -37,4 +38,3 @@ export class SalaEsperaComponent {
     gamingTable.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
   }
 }
-

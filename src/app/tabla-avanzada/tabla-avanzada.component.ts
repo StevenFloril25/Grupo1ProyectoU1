@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 export type TablaFila = {
   Fecha: string;
@@ -10,7 +11,7 @@ export type TablaFila = {
 @Component({
   selector: 'app-tabla-avanzada',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './tabla-avanzada.component.html',
   styleUrls: ['./tabla-avanzada.component.css']
 })

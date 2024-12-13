@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-inicio',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './inicio.component.html',
   styleUrls: ['./inicio.component.css']
 })

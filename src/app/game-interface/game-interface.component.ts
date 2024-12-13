@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-game-interface',
   templateUrl: './game-interface.component.html',
-  imports: [],
+  imports: [RouterModule],
   styleUrls: ['./game-interface.component.css']
 })
 export class GameInterfaceComponent implements OnInit {
