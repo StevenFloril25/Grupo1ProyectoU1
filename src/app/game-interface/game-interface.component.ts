@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-game-interface',
@@ -22,26 +23,42 @@ export class GameInterfaceComponent implements OnInit {
   generateGameCode() {
     this.gameCode = Math.random().toString(36).substring(2, 10).toUpperCase();
   }
+
   // Cerrar el modal
   closeModal() {
     this.isModalOpen = false;
   }
 
-
   // Enviar el código ingresado en el modal
   submitCode(enteredCode: string) {
     if (enteredCode === this.gameCode) {
-      alert('¡Código correcto! Te has unido a la partida.');
+      Swal.fire({
+        title: '¡Éxito!',
+        text: '¡Código correcto! Te has unido a la partida.',
+        icon: 'success',
+        confirmButtonText: 'Aceptar'
+      });
       this.closeModal();
     } else {
-      alert('Código incorrecto. Inténtalo de nuevo.');
+      Swal.fire({
+        title: 'Error',
+        text: 'Código incorrecto. Inténtalo de nuevo.',
+        icon: 'error',
+        confirmButtonText: 'Reintentar'
+      });
     }
   }
 
   // Copiar el código al portapapeles
   copyCode() {
     navigator.clipboard.writeText(this.gameCode).then(() => {
-     alert('Código copiado al portapapeles.');
+      Swal.fire({
+        title: '¡Copiado!',
+        text: 'Código copiado al portapapeles.',
+        icon: 'success',
+        timer: 1500,
+        showConfirmButton: false
+      });
     });
   }
 
@@ -50,9 +67,19 @@ export class GameInterfaceComponent implements OnInit {
     const newGame = `Partida-${this.games.length + 1}`; // Genera el nombre de la partida
     if (!this.games.includes(newGame)) {
       this.games.push(newGame); // Guarda la partida en la lista
-      alert(`Nueva partida creada: ${newGame}`);
+      Swal.fire({
+        title: 'Nueva partida creada',
+        text: `Nueva partida creada: ${newGame}`,
+        icon: 'success',
+        confirmButtonText: 'Aceptar'
+      });
     } else {
-      alert('La partida ya existe.');
+      Swal.fire({
+        title: 'Error',
+        text: 'La partida ya existe.',
+        icon: 'error',
+        confirmButtonText: 'Aceptar'
+      });
     }
   }
 
@@ -62,7 +89,12 @@ export class GameInterfaceComponent implements OnInit {
 
   // Unirse a una partida
   joinGame(game: string) {
-    alert(`¡Te uniste a la partida: ${game}!`);
+    Swal.fire({
+      title: '¡Unido!',
+      text: `¡Te uniste a la partida: ${game}!`,
+      icon: 'success',
+      confirmButtonText: 'Aceptar'
+    });
     this.closeModal(); // Cierra el modal después de unirse
   }
 }
