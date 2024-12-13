@@ -1,53 +1,54 @@
-.tabla-container {
-  background-color: #004b55;
-  color: white;
-  padding: 20px;
-  border-radius: 12px;
-  max-width: 900px;
-  margin: auto;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap');
 
-.titulo {
-  text-align: center;
-  color: #00bcd4;
-  font-size: 28px;
-  margin-bottom: 20px;
-}
-
+/* General Styles for Table */
 table {
   width: 100%;
   border-collapse: collapse;
-  border-radius: 12px;
-  overflow: hidden;
-}
-
-thead {
-  background-color: #005e6a;
+  margin: 20px 0;
 }
 
 thead th {
-  color: #00a9bf;
-  padding: 12px;
-  text-align: center;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 16px;
+  color: #00bcd4;
+  padding: 10px;
+  background-color: #005e6a;
+  border: 2px solid #004b55;
+}
+
+tbody tr {
+  background-color: #004b55;
 }
 
 tbody tr:nth-child(even) {
   background-color: #005e6a;
 }
 
-tbody tr:nth-child(odd) {
-  background-color: #004b55;
+td {
+  font-family: 'Arial', sans-serif;
+  font-size: 14px;
+  color: white;
+  text-align: center;
+  padding: 8px;
+  border: 1px solid #003740;
 }
 
-tbody td {
-  padding: 12px;
+td:first-child, /* Fechas en la primera columna */
+tfoot tr td { /* Totales en la última fila */
+  font-family: 'Orbitron', sans-serif;
+  font-size: 14px;
+  color: #00bcd4; /* Color para fechas y totales */
   text-align: center;
 }
 
+tfoot {
+  background-color: #003740;
+}
+
 input {
+  font-family: 'Orbitron', sans-serif;
   width: 90%;
-  background-color: #004b55;
+  background-color: #003740;
   color: white;
   border: 1px solid #00bcd4;
   border-radius: 4px;
@@ -60,9 +61,65 @@ input:focus {
   outline: 2px solid #00bcd4;
 }
 
-input[readonly] {
-  background-color: #003740;
-  color: #888888;
+/* Styling Buttons */
+button {
+  font-family: 'Orbitron', sans-serif;
+  background-color: #00a9bf;
+  color: white;
   border: none;
+  padding: 8px 12px;
+  margin-top: 5px;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background-color: #008c9e;
+}
+
+button:disabled {
+  background-color: #003740;
+  color: #aaa;
   cursor: not-allowed;
+}
+
+.alerta {
+  background-color: #005e6a;
+  color: #00bcd4;
+  padding: 10px 20px;
+  border-radius: 12px;
+  text-align: center;
+}
+.alerta {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #005e6a;
+  color: #00bcd4;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 14px;
+  text-align: center;
+  z-index: 1000;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  animation: fade-in-out 3s forwards;
+}
+
+@keyframes fade-in-out {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }

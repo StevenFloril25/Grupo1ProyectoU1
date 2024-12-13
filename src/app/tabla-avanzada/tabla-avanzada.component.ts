@@ -1,54 +1,106 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 // Definir el tipo de fila con acceso dinámico
-type TablaFila = {
+export type TablaFila = {
   Fecha: string;
-  [key: string]: string | number; // Permite acceso dinámico con índices
+  [key: string]: string | number | null; // Permitir valores nulos
 };
 
 @Component({
   selector: 'app-tabla-avanzada',
+  standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './tabla-avanzada.component.html',
   styleUrls: ['./tabla-avanzada.component.css']
 })
 export class TablaAvanzadaComponent {
-  tablaDatos: TablaFila[] = [
-    { Fecha: '1/3', Joyner: 79, Nelson: 16, Dario: 0, Mario: 7, Mateo: 40, Inge: 41 },
-    { Fecha: '2/3', Joyner: 22, Nelson: 110, Dario: 27, Mario: 13, Mateo: 23, Inge: 0 },
-    { Fecha: '1/4', Joyner: 100, Nelson: 135, Dario: 80, Mario: 0, Mateo: 76, Inge: 30 },
-    { Fecha: '2/4', Joyner: 152, Nelson: 15, Dario: 155, Mario: 2, Mateo: 24, Inge: 0 },
-    { Fecha: '1/5', Joyner: 28, Nelson: 112, Dario: 0, Mario: 76, Mateo: 12, Inge: 29 },
-    { Fecha: '2/5', Joyner: 25, Nelson: 98, Dario: 177, Mario: 73, Mateo: 6, Inge: 0 },
-    { Fecha: 'Escalera', Joyner: 0, Nelson: 0, Dario: 5, Mario: 0, Mateo: 0, Inge: 0 },
-    { Fecha: 'TOTAL', Joyner: 0, Nelson: 0, Dario: 0, Mario: 0, Mateo: 0, Inge: 0 }
-  ];
+  @Input() tablaDatos: TablaFila[] = []; // Recibe los datos desde un componente padre
+  @Output() totalesCalculados = new EventEmitter<{ [key: string]: number }>(); // Emite el total calculado
+
+  mensajeAlerta: string | null = null; // Mensaje para las alertas
+  mostrarAlerta: boolean = false; // Estado para mostrar/ocultar la alerta
+
+  // Fichas iniciales para cada jugador
+  fichasJugadores: { [key: string]: number } = {
+    Joyner: 10,
+    Nelson: 10,
+    Dario: 10,
+    Mario: 10,
+    Mateo: 10,
+    Inge: 10,
+  };
+
+  // Totales de cada jugador
+  totales: { [key: string]: number } = {
+    Joyner: 0,
+    Nelson: 0,
+    Dario: 0,
+    Mario: 0,
+    Mateo: 0,
+    Inge: 0,
+  };
 
   constructor() {
-    this.recalcularTotales();
+    setTimeout(() => this.recalcularTotales(), 0);
   }
 
+  // Método para recalcular los totales
   recalcularTotales(): void {
-    const totalRow = this.tablaDatos[this.tablaDatos.length - 1];
-
-    // Inicializar totales
-    Object.keys(totalRow).forEach((key) => {
-      if (key !== 'Fecha') {
-        totalRow[key] = 0; // Resetear el total a 0
-      }
+    // Reiniciar los totales
+    Object.keys(this.totales).forEach((key) => {
+      this.totales[key] = 0;
     });
 
-    // Calcular los totales
+    // Calcular los totales sumando los valores válidos de la tabla
     this.tablaDatos.forEach((fila, index) => {
       if (index < this.tablaDatos.length - 1) {
-        Object.keys(fila).forEach((key) => {
-          if (key !== 'Fecha' && typeof fila[key] === 'number' && typeof totalRow[key] === 'number') {
-            totalRow[key] = (totalRow[key] as number) + (fila[key] as number);
+        Object.keys(this.totales).forEach((key) => {
+          if (
+            fila[key] !== null &&
+            typeof fila[key] === 'number' &&
+            typeof this.totales[key] === 'number'
+          ) {
+            this.totales[key] += fila[key] as number;
           }
         });
       }
     });
+
+    // Emitir los totales actualizados
+    this.totalesCalculados.emit(this.totales);
+  }
+
+  // Validar entrada de datos
+  validarEntrada(event: any, fila: TablaFila, columna: string): void {
+    const valor = event.target.value;
+    if (!/^[1-9]\d*$/.test(valor)) {
+      this.mostrarAlertaConMensaje(`El valor ingresado en ${columna} no es válido. Ingrese un número positivo.`);
+      fila[columna] = null;
+      event.target.value = '';
+    } else {
+      fila[columna] = parseInt(valor, 10);
+      this.recalcularTotales();
+    }
+  }
+
+  // Comprar fichas
+  comprarFichas(jugador: string): void {
+    if (this.fichasJugadores[jugador] > 0) {
+      this.fichasJugadores[jugador]--;
+    } else {
+      this.mostrarAlertaConMensaje(`El jugador ${jugador} no tiene fichas disponibles.`);
+    }
+  }
+
+  // Mostrar alerta con un mensaje
+  mostrarAlertaConMensaje(mensaje: string): void {
+    this.mensajeAlerta = mensaje;
+    this.mostrarAlerta = true;
+    setTimeout(() => {
+      this.mensajeAlerta = null;
+      this.mostrarAlerta = false;
+    }, 3000);
   }
 }
