@@ -4,10 +4,11 @@ import { TablaAvanzadaComponent } from './tabla-avanzada/tabla-avanzada.componen
 import { CommonModule } from '@angular/common';
 import { InicioComponent } from './inicio/inicio.component';
 import { SalaEsperaComponent } from './sala-espera/sala-espera.component';
+import { GameInterfaceComponent } from "./game-interface/game-interface.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet,TablaAvanzadaComponent,CommonModule, InicioComponent,SalaEsperaComponent],
+  imports: [RouterOutlet, TablaAvanzadaComponent, CommonModule, InicioComponent, SalaEsperaComponent, GameInterfaceComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
